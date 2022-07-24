@@ -6,6 +6,7 @@ authors = ["shar <Sasha.sharai1998@mail.ru>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+djangorestframework = "3.13.1"
 
 [tool.poetry.dev-dependencies]
 Django = "^4.0.6"

@@ -2,7 +2,7 @@
 name = "asgiref"
 version = "3.5.2"
 description = "ASGI specs, helper code, and adapters"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 
@@ -13,7 +13,7 @@ tests = ["pytest", "pytest-asyncio", "mypy (>=0.800)"]
 name = "django"
 version = "4.0.6"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.8"
 
@@ -27,10 +27,30 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "djangorestframework"
+version = "3.13.1"
+description = "Web APIs for Django, made easy."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+django = ">=2.2"
+pytz = "*"
+
+[[package]]
+name = "pytz"
+version = "2022.1"
+description = "World timezone definitions, modern and historical"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "sqlparse"
 version = "0.4.2"
 description = "A non-validating SQL parser."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.5"
 
@@ -38,14 +58,14 @@ python-versions = ">=3.5"
 name = "tzdata"
 version = "2022.1"
 description = "Provider of IANA time zone data"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2"
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "be44d5f317db8a5cd0279f97c3a98fd161171e7fe99ba98a340eaf76fee9c2d7"
+content-hash = "fdc0c37e3b77e38f895fd6f777329d7e0911791bf81e7fdb57c8196399e498a3"
 
 [metadata.files]
 asgiref = [
@@ -53,6 +73,8 @@ asgiref = [
     {file = "asgiref-3.5.2.tar.gz", hash = "sha256:4a29362a6acebe09bf1d6640db38c1dc3d9217c68e6f9f6204d72667fc19a424"},
 ]
 django = []
+djangorestframework = []
+pytz = []
 sqlparse = [
     {file = "sqlparse-0.4.2-py3-none-any.whl", hash = "sha256:48719e356bb8b42991bdbb1e8b83223757b93789c00910a616a071910ca4a64d"},
     {file = "sqlparse-0.4.2.tar.gz", hash = "sha256:0c00730c74263a94e5a9919ade150dfc3b19c574389985446148402998287dae"},
