@@ -59,6 +59,14 @@ docs = ["furo", "olefile", "sphinx (>=2.4)", "sphinx-copybutton", "sphinx-issues
 tests = ["check-manifest", "coverage", "defusedxml", "markdown2", "olefile", "packaging", "pyroma", "pytest", "pytest-cov", "pytest-timeout"]
 
 [[package]]
+name = "psycopg2-binary"
+version = "2.9.3"
+description = "psycopg2 - Python-PostgreSQL Database Adapter"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[[package]]
 name = "python-dotenv"
 version = "0.20.0"
 description = "Read key-value pairs from a .env file and set them as environment variables"
@@ -96,7 +104,7 @@ python-versions = ">=2"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "b36162b4aaf863d7d888c023094f4aa955dc7d6be7f625ea4822271a84625507"
+content-hash = "cd69a14d31ef24d7408a1e0ab5bc9b97180d70921edcd28337f02252c0cffd6c"
 
 [metadata.files]
 asgiref = [
@@ -107,6 +115,7 @@ django = []
 djangorestframework = []
 dotenv = []
 pillow = []
+psycopg2-binary = []
 python-dotenv = []
 pytz = []
 sqlparse = [
