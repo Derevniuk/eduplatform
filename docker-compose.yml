@@ -12,7 +12,9 @@ services:
   web:
     build: .
     container_name: eduplatform_web
-    command: python Eduplatform_site/manage.py runserver 0.0.0.0:8000
+    command: >
+      bash -c "python Eduplatform_site/manage.py migrate
+      && python Eduplatform_site/manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
     ports:
