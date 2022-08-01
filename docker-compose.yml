@@ -13,14 +13,12 @@ services:
     build: .
     container_name: eduplatform_web
     command: >
-      bash -c "python Eduplatform_site/manage.py migrate
+      bash -c "python Eduplatform_site/manage.py makemigrations
+      && python Eduplatform_site/manage.py migrate
       && python Eduplatform_site/manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
     ports:
       - "8000:8000"
-#    environment:
-#      - POSTGRES_USER=POSTGRES_USER
-#      - POSTGRES_PASSWORD=POSTGRES_PASSWORD
     depends_on:
       - db

@@ -39,14 +39,6 @@ django = ">=2.2"
 pytz = "*"
 
 [[package]]
-name = "dotenv"
-version = "0.0.5"
-description = "Handle .env files"
-category = "main"
-optional = false
-python-versions = "*"
-
-[[package]]
 name = "pillow"
 version = "9.2.0"
 description = "Python Imaging Library (Fork)"
@@ -104,7 +96,7 @@ python-versions = ">=2"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "cd69a14d31ef24d7408a1e0ab5bc9b97180d70921edcd28337f02252c0cffd6c"
+content-hash = "8656cc34b57b1146c33035811cfa3daca997d450706b5c2691f9aa0427a7f911"
 
 [metadata.files]
 asgiref = [
@@ -113,7 +105,6 @@ asgiref = [
 ]
 django = []
 djangorestframework = []
-dotenv = []
 pillow = []
 psycopg2-binary = []
 python-dotenv = []
