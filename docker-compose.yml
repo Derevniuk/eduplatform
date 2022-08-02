@@ -18,12 +18,12 @@ services:
     command: >
       bash -c "python Eduplatform_site/manage.py makemigrations
       && python Eduplatform_site/manage.py migrate
-      && python Eduplatform_site/manage.py runserver 0.0.0.0:8000"
+      && python Eduplatform_site/manage.py runserver 0.0.0.0:8080"
     volumes:
       - .:/code
     env_file:
       - .env
     ports:
-      - "8000:8000"
+      - "8080:8080"
     depends_on:
       - db
