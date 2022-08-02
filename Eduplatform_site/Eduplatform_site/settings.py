@@ -24,13 +24,20 @@ DEBUG = int(os.environ.get("DEBUG", default=0))
 
 ALLOWED_HOSTS = [os.environ.get("ALLOWED_HOSTS"),]
 
+AUTH_USER_MODEL = 'account.User'
+
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    *['django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+     ],
+    *['account.apps.AccountConfig'
+     ],
+    *['rest_framework'
+     ]
 ]
 
 MIDDLEWARE = [
