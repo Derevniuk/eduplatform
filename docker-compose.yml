@@ -1,0 +1,29 @@
+version: "3"
+services:
+  db:
+    image: postgres
+    container_name: eduplatform_db
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+# if you want to delete the database, delete dir "data", "rm -r data"
+# first start database:
+#    environment:
+#      POSTGRES_PASSWORD: postgre
+#second start database:
+    env_file:
+      - .env
+  web:
+    build: .
+    container_name: eduplatform_web
+    command: >
+      bash -c "python Eduplatform_site/manage.py makemigrations
+      && python Eduplatform_site/manage.py migrate
+      && python Eduplatform_site/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
