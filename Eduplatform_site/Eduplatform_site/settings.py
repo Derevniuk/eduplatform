@@ -22,7 +22,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = [os.environ.get("ALLOWED_HOSTS"),]
+ALLOWED_HOSTS = [os.environ.get("ALLOWED_HOSTS"), 'localhost']
 
 AUTH_USER_MODEL = 'account.User'
 
@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     *['rest_framework'
      ]
 ]
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = BASE_DIR / 'media'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -30,4 +30,29 @@ class User(DateTimeMixinModel,AbstractUser):
         verbose_name_plural = _("Castom_users")
 
 
+class Teacher(models.Model):
+    user_id = models.ForeignKey(User, on_delete = models.CASCADE)
+    photo = models.ImageField(upload_to='photos\ ')
+
+    def __str__(self):
+        return f'{self.id}, {self.user_id}'
+
+    class Meta:
+        verbose_name = _("teacher")
+        verbose_name_plural = _("teachers")
+
+
+class Student(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    photo = models.ImageField(upload_to='photos\ ')
+
+    def __str__(self):
+        return f'{self.id}, {self.user_id}'
+
+    class Meta:
+        verbose_name = _("student")
+        verbose_name_plural = _("student")
+
+
+
 
