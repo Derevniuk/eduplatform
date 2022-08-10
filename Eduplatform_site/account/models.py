@@ -1,5 +1,5 @@
 
-
+import datetime
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
@@ -20,19 +20,18 @@ class User(DateTimeMixinModel,AbstractUser):
     objects = CustomUserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["password"]
 
     def __str__(self):
         return f'{self.id} - {self.email} '
 
     class Meta:
-        verbose_name = _("Custom_user")
-        verbose_name_plural = _("Castom_users")
+        verbose_name = _("user")
+        verbose_name_plural = _("users")
 
 
 class Teacher(models.Model):
     user_id = models.ForeignKey(User, on_delete = models.CASCADE)
-    photo = models.ImageField(upload_to='photos\ ')
 
     def __str__(self):
         return f'{self.id}, {self.user_id}'
@@ -44,7 +43,6 @@ class Teacher(models.Model):
 
 class Student(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to='photos\ ')
 
     def __str__(self):
         return f'{self.id}, {self.user_id}'
@@ -52,6 +50,20 @@ class Student(models.Model):
     class Meta:
         verbose_name = _("student")
         verbose_name_plural = _("student")
+
+class UserPhotos(models.Model):
+    photo = models.ImageField(upload_to='image/%Y/%m/%d/')
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, blank=True, null=True)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.id}, {self.photo}, {self.user}'
+
+    class Meta:
+        verbose_name = _("user_photo")
+        verbose_name_plural = _("user_photo")
+
 
 
 
