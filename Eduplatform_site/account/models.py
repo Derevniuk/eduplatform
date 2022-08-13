@@ -9,13 +9,12 @@ from .managers import CustomUserManager
 
 __all__ = {'User','Teacher','Student','UserPhotos'}
 
-class User(DateTimeMixinModel,AbstractUser):
+class User(AbstractUser,DateTimeMixinModel,models.Model):
     first_name = models.CharField(_("first name"), max_length=150, blank=True)
     last_name = models.CharField(_("last name"), max_length=150, blank=True)
     email = models.EmailField(_("email address"), unique=True)
     is_staff = models.BooleanField(_("staff status"),default=False,)
     is_active = models.BooleanField(_("active"),default=True)
-    date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
 
     objects = CustomUserManager()
 
