@@ -3,7 +3,6 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
-from django.utils import timezone
 from .mixins import DateTimeMixinModel
 from .managers import CustomUserManager
 
