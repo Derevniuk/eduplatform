@@ -9,4 +9,4 @@ RUN pip install -U pip && \
    poetry install
 
 COPY . /code/
-EXPOSE 8000
+EXPOSE 8080
