@@ -5,8 +5,10 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from .mixins import DateTimeMixinModel
 from .managers import CustomUserManager
+import learning.models as m
 
 __all__ = {'User','Teacher','Student','UserPhotos'}
+
 
 class User(AbstractUser,DateTimeMixinModel,models.Model):
     first_name = models.CharField(_("first name"), max_length=150, blank=True)
@@ -21,14 +23,14 @@ class User(AbstractUser,DateTimeMixinModel,models.Model):
     REQUIRED_FIELDS = ['first_name','last_name']
 
     def __str__(self):
-        return f'{self.id} - {self.email} '
+        return f'{self.id}, {self.email} '
 
     class Meta:
         verbose_name = _("user")
         verbose_name_plural = _("users")
 
 
-class Teacher(models.Model):
+class Teacher(models.Model,DateTimeMixinModel):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
 
     def __str__(self):
@@ -39,17 +41,18 @@ class Teacher(models.Model):
         verbose_name_plural = _("teachers")
 
 
-class Student(models.Model):
+class Student(models.Model,DateTimeMixinModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    cource = models.ForeignKey(m.LearningCource, on_delete= models.CASCADE)
 
     def __str__(self):
-        return f'{self.id}, {self.user}'
+        return f'{self.id}, user - {self.user}, cource - {self.cource}'
 
     class Meta:
         verbose_name = _("student")
         verbose_name_plural = _("students")
 
-class UserPhotos(models.Model):
+class UserPhotos(models.Model,DateTimeMixinModel):
     photo = models.ImageField(upload_to='image/%Y/%m/%d/')
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, blank=True, null=True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE, blank=True, null=True)
