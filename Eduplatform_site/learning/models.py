@@ -1,33 +1,32 @@
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinValueValidator
 from django.db import models
-import account.mixins as mix
-import account.models as m
+from account.mixins import DateTimeMixinModel
 
-__all__ = {'LearningCource', 'CourceTopic'}
+__all__ = {'Course', 'Topic'}
 
 
-class LearningCource(models.Model,mix.DateTimeMixinModel):
-    cource_name = models.CharField(max_length=50)
-    teacher = models.ForeignKey(m.Teacher, on_delete=models.CASCADE)
+class Course(models.Model,DateTimeMixinModel):
+    course_name = models.CharField(max_length=50)
 
     def __str__(self):
-        return f'{self.id}, {self.cource_name}, teacher - {self.teacher}'
+        return f'{self.course_name}'
 
     class Meta:
-        verbose_name = _("cource")
-        verbose_name_plural = _("cources")
+        verbose_name = _("course")
+        verbose_name_plural = _("courses")
 
 
-class CourceTopic(models.Model,mix.DateTimeMixinModel):
+class Topic(models.Model,DateTimeMixinModel):
     topic_name = models.CharField(max_length=50)
-    cource = models.ForeignKey(LearningCource, on_delete=models.CASCADE)
-    # article = models.ForeignKey(Article, on_delete=models.CASCADE)
-    difficulty = models.IntegerField(validators=[MinValueValidator(0,'Min difficulty value!')])
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    content = models.TextField(null=True)
+    numbering = models.IntegerField(validators=[MinValueValidator(0,'Min number value!')])
 
     def __str__(self):
-        return f'{self.id}, {self.topic_name}, cource - {self.cource}'
+        return f'{self.id}, {self.topic_name}, course - {self.course}'
 
     class Meta:
-        verbose_name = _("cource_topic")
-        verbose_name_plural = _("cource_topics")
+        verbose_name = _("course_topic")
+        verbose_name_plural = _("course_topics")
+        ordering = ['numbering',]
