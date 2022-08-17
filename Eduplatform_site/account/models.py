@@ -11,7 +11,7 @@ import learning.models as learning_models
 __all__ = {'User','Teacher','Student','Photo','Group'}
 
 
-class User(AbstractBaseUser,PermissionsMixin,DateTimeMixinModel,models.Model):
+class User(AbstractBaseUser,PermissionsMixin,DateTimeMixinModel):
     first_name = models.CharField(_("first name"), max_length=150, blank=True)
     last_name = models.CharField(_("last name"), max_length=150, blank=True)
     email = models.EmailField(_("email address"), unique=True)
@@ -44,9 +44,10 @@ class Teacher(models.Model,DateTimeMixinModel):
 
 class Student(models.Model,DateTimeMixinModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    course = models.ForeignKey(learning_models.Course, on_delete= models.CASCADE,null=True)
     group = models.ForeignKey('Group',on_delete=models.CASCADE,null=True)
-    completed_tests = models.JSONField(default=dict)
+    rating = models.FloatField()
+    # completed_tests = models.ManyToManyField(Test)
+    # complited_articles = models.ManyToManyField(Article)
 
     def __str__(self):
         return f'{self.id}, user - {self.user}, course - {self.course}, group - {self.group}'
@@ -69,8 +70,10 @@ class Photo(models.Model,DateTimeMixinModel):
 
 
 class Group(models.Model,DateTimeMixinModel):
+    course = models.ForeignKey(learning_models.Course, on_delete=models.CASCADE, null=True)
     group_name = models.CharField(max_length=50)
     teacher = models.ForeignKey(Teacher,on_delete=models.SET_NULL,null=True)
+    student = models.ManyToManyField(Student)
 
     def __str__(self):
         return f'{self.group_name}, teacher - {self.teacher}'
