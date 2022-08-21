@@ -9,7 +9,7 @@ __all__ = {'Course', 'Topic'}
 
 class Course(models.Model,DateTimeMixinModel):
     course_name = models.CharField(max_length=50)
-    creator = models.ForeignKey(account_model.Teacher,on_delete=models.CASCADE)
+    creator = models.ForeignKey(account_model.Teacher,on_delete=models.CASCADE,null=True)
 
     def __str__(self):
         return f'{self.course_name}'

@@ -1,11 +1,9 @@
 
-import datetime
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 from .mixins import DateTimeMixinModel
 from .managers import CustomUserManager
-import learning.models as learning_models
 
 
 __all__ = {'User','Teacher','Student','Photo','Group'}
@@ -44,13 +42,10 @@ class Teacher(models.Model,DateTimeMixinModel):
 
 class Student(models.Model,DateTimeMixinModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    group = models.ForeignKey('Group',on_delete=models.CASCADE,null=True)
-    rating = models.FloatField()
-    # completed_tests = models.ManyToManyField(Test)
-    # complited_articles = models.ManyToManyField(Article)
+    rating = models.FloatField(null=True)
 
     def __str__(self):
-        return f'{self.id}, user - {self.user}, course - {self.course}, group - {self.group}'
+        return f'{self.id}, user - {self.user}'
 
     class Meta:
         verbose_name = _("student")
@@ -70,10 +65,10 @@ class Photo(models.Model,DateTimeMixinModel):
 
 
 class Group(models.Model,DateTimeMixinModel):
-    course = models.ForeignKey(learning_models.Course, on_delete=models.CASCADE, null=True)
     group_name = models.CharField(max_length=50)
+    course = models.ForeignKey('learning.Course', on_delete=models.CASCADE, null=True)
     teacher = models.ForeignKey(Teacher,on_delete=models.SET_NULL,null=True)
-    student = models.ManyToManyField(Student)
+    student = models.ManyToManyField(Student,blank=True)
 
     def __str__(self):
         return f'{self.group_name}, teacher - {self.teacher}'
