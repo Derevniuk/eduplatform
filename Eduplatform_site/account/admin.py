@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import (User,Teacher,Student,UserPhotos)
+from .models import (User,Teacher,Student,Group,Photo)
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ('id', 'email', 'is_staff')
@@ -14,12 +14,14 @@ class StudentAdmin(admin.ModelAdmin):
     list_display = ('id', 'user')
     list_display_links = ('id', 'user')
 
-class PhotoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'photo', 'teacher', 'student')
-    list_display_links = ('id','photo', 'teacher', 'student')
+
+class GroupAdmin(admin.ModelAdmin):
+    list_display = ('id', 'group_name')
+    list_display_link = ('id', 'group_name')
 
 
 admin.site.register(User,UserAdmin)
 admin.site.register(Teacher,TeacherAdmin)
 admin.site.register(Student,StudentAdmin)
-admin.site.register(UserPhotos,PhotoAdmin)
+admin.site.register(Group,GroupAdmin)
+admin.site.register(Photo)
