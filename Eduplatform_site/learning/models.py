@@ -4,7 +4,7 @@ from django.core.validators import MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
 from account.models import Teacher, Student
-from account.mixins import DateTimeMixinModel
+from Eduplatform_site.mixins import DateTimeMixinModel
 
 
 __all__ = {'Course', 'Topic', 'Article', 'Test', 'Question', 'Answer', 'Attempt'}
