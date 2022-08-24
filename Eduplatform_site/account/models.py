@@ -22,7 +22,7 @@ class User(AbstractBaseUser,PermissionsMixin,DateTimeMixinModel):
     REQUIRED_FIELDS = ['first_name','last_name']
 
     def __str__(self):
-        return f'{self.id}, {self.email} '
+        return f'{self.email} '
 
     class Meta:
         verbose_name = _("user")
@@ -33,7 +33,7 @@ class Teacher(models.Model,DateTimeMixinModel):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
 
     def __str__(self):
-        return f'{self.id}, {self.user}'
+        return f'{self.id}, user-{self.user}'
 
     class Meta:
         verbose_name = _("teacher")
@@ -57,7 +57,7 @@ class Photo(models.Model,DateTimeMixinModel):
     student = models.ForeignKey(Student, models.CASCADE,blank=True,null=True)
 
     def __str__(self):
-        return f'{self.id}, path - {self.photo}'
+        return f'{self.id}, path-{self.photo}'
 
     class Meta:
         verbose_name = _("photo")
@@ -71,7 +71,7 @@ class Group(models.Model,DateTimeMixinModel):
     student = models.ManyToManyField(Student,blank=True)
 
     def __str__(self):
-        return f'{self.group_name}, teacher - {self.teacher}'
+        return f'{self.group_name}, teacher-{self.teacher}'
 
     class Meta:
         verbose_name = _("students_group")
