@@ -1,13 +1,11 @@
-
-from django.db import models
+from account.models import Student, Teacher
 from django.core.validators import MinValueValidator
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from account.models import Teacher, Student
 from Eduplatform_site.mixins import DateTimeMixinModel
 
-
-__all__ = {'Course', 'Topic', 'Article', 'Test', 'Question', 'Answer', 'Attempt'}
+__all__ = {"Course", "Topic", "Article", "Test", "Question", "Answer", "Attempt"}
 
 
 class Course(models.Model, DateTimeMixinModel):
@@ -19,22 +17,24 @@ class Course(models.Model, DateTimeMixinModel):
         verbose_name_plural = _("courses")
 
     def __str__(self):
-        return f'{self.course_name}'
+        return f"{self.course_name}"
 
 
 class Topic(models.Model, DateTimeMixinModel):
     topic_name = models.CharField(max_length=50)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     content = models.TextField(null=True)
-    numbering = models.IntegerField(validators=[MinValueValidator(0, 'Min number value!')])
+    numbering = models.IntegerField(validators=[MinValueValidator(0, "Min number value!")])
 
     class Meta:
         verbose_name = _("course_topic")
         verbose_name_plural = _("course_topics")
-        ordering = ['numbering', ]
+        ordering = [
+            "numbering",
+        ]
 
     def __str__(self):
-        return f'{self.id}, {self.topic_name}, course - {self.course}'
+        return f"{self.id}, {self.topic_name}, course - {self.course}"
 
 
 class Article(models.Model, DateTimeMixinModel):
