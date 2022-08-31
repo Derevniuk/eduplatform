@@ -26,7 +26,8 @@ INSTALLED_APPS = [
     *['account.apps.AccountConfig',
       'learning.apps.LearningConfig'
      ],
-    *['rest_framework'
+    *['rest_framework',
+      'drf_multiple_model',
      ]
 ]
 MEDIA_URL = '/media/'

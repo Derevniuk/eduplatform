@@ -31,6 +31,7 @@ class User(AbstractBaseUser,PermissionsMixin,DateTimeMixinModel):
 
 class Teacher(models.Model,DateTimeMixinModel):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
+    photo = models.ManyToManyField('Photo')
 
     def __str__(self):
         return f'{self.id}, user-{self.user}'
@@ -43,6 +44,7 @@ class Teacher(models.Model,DateTimeMixinModel):
 class Student(models.Model,DateTimeMixinModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.FloatField(null=True)
+    photo = models.ManyToManyField('Photo')
 
     def __str__(self):
         return f'{self.id}, user - {self.user}'
@@ -52,9 +54,7 @@ class Student(models.Model,DateTimeMixinModel):
         verbose_name_plural = _("students")
 
 class Photo(models.Model,DateTimeMixinModel):
-    photo = models.ImageField(upload_to='image/%Y/%m/%d/')
-    teacher = models.ForeignKey(Teacher,models.CASCADE,blank=True,null=True)
-    student = models.ForeignKey(Student, models.CASCADE,blank=True,null=True)
+    photo = models.ImageField(upload_to='image/%Y/%m/%d/',)
 
     def __str__(self):
         return f'{self.id}, path-{self.photo}'
@@ -62,6 +62,7 @@ class Photo(models.Model,DateTimeMixinModel):
     class Meta:
         verbose_name = _("photo")
         verbose_name_plural = _("photos")
+        unique_together = ['photo',]
 
 
 class Group(models.Model,DateTimeMixinModel):
