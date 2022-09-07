@@ -13,6 +13,7 @@ psycopg2-binary = "^2.9.3"
 
 [tool.poetry.dev-dependencies]
 Django = "^4.0.6"
+pre-commit = "^2.20.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
