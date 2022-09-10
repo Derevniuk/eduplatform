@@ -1,13 +1,14 @@
+from rest_framework import permissions
 from rest_framework.generics import ListAPIView
 from rest_framework.viewsets import ModelViewSet
-from rest_framework import permissions
 
-from .serializers import (UserSerializer,
-                          TeacherSerializer,
-                          StudentSerializer,
-                          GroupSerializer,
-                          )
-from .models import User, Teacher, Student, Group
+from .models import Group, Student, Teacher, User
+from .serializers import (
+    GroupSerializer,
+    StudentSerializer,
+    TeacherSerializer,
+    UserSerializer,
+)
 
 
 class UserViewSet(ModelViewSet):

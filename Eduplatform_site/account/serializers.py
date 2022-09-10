@@ -1,29 +1,30 @@
 from rest_framework import serializers
-from .models import User, Teacher, Student, Group
+
+from .models import Group, Student, Teacher, User
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = "__all__"
 
 
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
-        fields = '__all__'
+        fields = "__all__"
 
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = '__all__'
+        fields = "__all__"
 
 
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
-        fields = ('id', 'group_name', 'course', 'teacher', 'student')
+        fields = ("id", "group_name", "course", "teacher", "student")
 
 
 class GroupTeacherSerializer(serializers.ModelSerializer):
@@ -31,11 +32,11 @@ class GroupTeacherSerializer(serializers.ModelSerializer):
         model = Teacher
 
     def to_representation(self, obj):
-        match isinstance(obj, Teacher):
-            case True:
+        if obj:
+            if isinstance(obj, Teacher):
                 serializer = TeacherSerializer(obj)
-            case False:
+            else:
                 serializer = GroupSerializer(obj)
-            case _:
-                raise Exception("Nothing to serialize.")
+        else:
+            raise Exception("Nothing to serialize.")
         return serializer.data
