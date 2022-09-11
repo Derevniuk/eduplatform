@@ -15,6 +15,10 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="group",
             name="course",
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to="learning.course"),
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="learning.course",
+            ),
         ),
     ]

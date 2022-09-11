@@ -17,10 +17,27 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="Attempt",
             fields=[
-                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
                 ("score", models.PositiveSmallIntegerField(default=0)),
-                ("student", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="account.student")),
-                ("test", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="learning.test")),
+                (
+                    "student",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="account.student",
+                    ),
+                ),
+                (
+                    "test",
+                    models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="learning.test"),
+                ),
             ],
             options={
                 "verbose_name": "test_attempt",
