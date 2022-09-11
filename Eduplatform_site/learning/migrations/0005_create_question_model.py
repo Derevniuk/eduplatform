@@ -16,10 +16,21 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="Question",
             fields=[
-                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
                 ("text", models.CharField(max_length=255)),
                 ("is_important", models.BooleanField(default=False)),
-                ("test", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="learning.test")),
+                (
+                    "test",
+                    models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="learning.test"),
+                ),
             ],
             options={
                 "verbose_name": "test_question",

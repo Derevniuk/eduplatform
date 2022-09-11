@@ -18,9 +18,23 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="Course",
             fields=[
-                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
                 ("course_name", models.CharField(max_length=50)),
-                ("creator", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="account.teacher")),
+                (
+                    "creator",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="account.teacher",
+                    ),
+                ),
             ],
             options={
                 "verbose_name": "course",

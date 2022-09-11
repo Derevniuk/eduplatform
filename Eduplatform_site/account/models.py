@@ -25,20 +25,19 @@ class User(AbstractBaseUser, PermissionsMixin, DateTimeMixinModel):
     REQUIRED_FIELDS = ["first_name", "last_name"]
 
     def __str__(self):
-        return f'{self.email} '
+        return f"{self.email} "
 
     class Meta:
         verbose_name = _("user")
         verbose_name_plural = _("users")
 
 
-class Teacher(models.Model,DateTimeMixinModel):
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
-    photo = models.ManyToManyField('Photo')
+class Teacher(models.Model, DateTimeMixinModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    photo = models.ManyToManyField("Photo")
 
     def __str__(self):
-        return f'{self.id}, user-{self.user}'
-        
+        return f"{self.id}, user-{self.user}"
 
     class Meta:
         verbose_name = _("teacher")
@@ -48,7 +47,7 @@ class Teacher(models.Model,DateTimeMixinModel):
 class Student(models.Model, DateTimeMixinModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.FloatField(null=True)
-    photo = models.ManyToManyField('Photo')
+    photo = models.ManyToManyField("Photo")
 
     def __str__(self):
         return f"{self.id}, user - {self.user}"
@@ -58,17 +57,20 @@ class Student(models.Model, DateTimeMixinModel):
         verbose_name_plural = _("students")
 
 
-class Photo(models.Model,DateTimeMixinModel):
-    photo = models.ImageField(upload_to='image/%Y/%m/%d/',)
+class Photo(models.Model, DateTimeMixinModel):
+    photo = models.ImageField(
+        upload_to="image/%Y/%m/%d/",
+    )
 
     def __str__(self):
-        return f'{self.id}, path-{self.photo}'
-
+        return f"{self.id}, path-{self.photo}"
 
     class Meta:
         verbose_name = _("photo")
         verbose_name_plural = _("photos")
-        unique_together = ['photo',]
+        unique_together = [
+            "photo",
+        ]
 
 
 class Group(models.Model, DateTimeMixinModel):
@@ -78,8 +80,7 @@ class Group(models.Model, DateTimeMixinModel):
     student = models.ManyToManyField(Student, blank=True)
 
     def __str__(self):
-        return f'{self.group_name}, teacher-{self.teacher}'
-
+        return f"{self.group_name}, teacher-{self.teacher}"
 
     class Meta:
         verbose_name = _("students_group")

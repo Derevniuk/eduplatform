@@ -16,10 +16,34 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="Photo",
             fields=[
-                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
                 ("photo", models.ImageField(upload_to="image/%Y/%m/%d/")),
-                ("student", models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to="account.student")),
-                ("teacher", models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to="account.teacher")),
+                (
+                    "student",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="account.student",
+                    ),
+                ),
+                (
+                    "teacher",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="account.teacher",
+                    ),
+                ),
             ],
             options={
                 "verbose_name": "photo",
