@@ -1,9 +1,9 @@
+from django.contrib.auth import authenticate
 from rest_framework import mixins, permissions, status
 from rest_framework.generics import ListAPIView, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
-from rest_framework.generics import CreateAPIView
 
 from .models import Group, Student, Teacher, User
 from .serializers import (
@@ -50,22 +50,21 @@ class GroupTeacherViewAPI(ListAPIView):
         return Group.objects.filter(teacher__in=teacher)
 
 
-class RegisterViewApi(CreateAPIView):
-    queryset = User.objects.all()
+class RegisterViewApi(mixins.CreateModelMixin, GenericViewSet):
     serializer_class = RegisterSerializer
     permission_classes = [permissions.AllowAny]
 
-    # def create(self, request):
-    #     serializer = RegisterSerializer(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     serializer.save()
-    #     return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #
-    # def list_user(self, request, pk=None):
-    #     queryset = User.objects.all()
-    #     user = get_object_or_404(queryset, pk=pk)
-    #     serializer = UserSerializer(user)
-    #     return Response(serializer.data)
+    def create(self, request):
+        serializer = RegisterSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def list_user(self, request, pk=None):
+        queryset = User.objects.all()
+        user = get_object_or_404(queryset, pk=pk)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
 
 
 class LoginViewApi(APIView):
@@ -73,8 +72,7 @@ class LoginViewApi(APIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self, request):
-        user = request.data.get("user")
-        serializer = self.serializer_class(data=user)
+        serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
