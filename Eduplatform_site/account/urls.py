@@ -25,6 +25,6 @@ urlpatterns = [
         GroupTeacherViewAPI.as_view(),
         name="teacher_groups",
     ),
-    path('users/register/',RegisterViewApi.as_view({'get': 'list_user'})),
-    path('users/login/',LoginViewApi.as_view(), name = 'create_user')
+    path('register/',RegisterViewApi.as_view(),name = 'create_user'),
+    path('login/',LoginViewApi.as_view(), name = 'login_user')
 ]
