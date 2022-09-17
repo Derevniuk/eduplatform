@@ -1,14 +1,11 @@
-from django.contrib.auth import authenticate, login
 from rest_framework import mixins, permissions, status
 from rest_framework.generics import ListAPIView, get_object_or_404
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
 from .models import Group, Student, Teacher, User
 from .serializers import (
     GroupSerializer,
-    # LoginSerializer,
     RegisterSerializer,
     StudentSerializer,
     TeacherSerializer,

@@ -6,15 +6,13 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 
-
 from .endpoints import (
     GroupTeacherViewAPI,
     GroupViewSet,
+    RegisterViewApi,
     StudentViewSet,
     TeacherViewSet,
     UserViewSet,
-    RegisterViewApi,
-    # LoginViewApi,
 )
 
 router = DefaultRouter()
@@ -31,9 +29,8 @@ urlpatterns = [
         GroupTeacherViewAPI.as_view(),
         name="teacher_groups",
     ),
-    path('register/',RegisterViewApi.as_view({'get': 'list_user','post':'create'}),name = 'create_user'),
-    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
-
+    path("register/", RegisterViewApi.as_view({"get": "list_user", "post": "create"}), name="create_user"),
+    path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("token/verify/", TokenVerifyView.as_view(), name="token_verify"),
 ]
