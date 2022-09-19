@@ -10,8 +10,16 @@ from .serializers import (
     StudentSerializer,
     TeacherSerializer,
     UserSerializer,
+    GroupStudentSerializer,
 )
 
+__all__ = {'UserViewSet',
+           'TeacherViewSet',
+           'StudentViewSet', 'GroupViewSet',
+           'GroupTeacherViewAPI',
+           'GroupStudentViewAPI',
+           'RegisterViewApi'
+           }
 
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
@@ -47,6 +55,17 @@ class GroupTeacherViewAPI(ListAPIView):
         return Group.objects.filter(teacher__in=teacher)
 
 
+class GroupStudentViewAPI(ListAPIView):
+    permission_classes = [permissions.IsAdminUser]
+    serializer_class = GroupStudentSerializer
+    queryset = Student.objects.all()
+
+    def get_queryset(self):
+        group = self.kwargs["id"]
+        print(self.request)
+        return Student.objects.filter(group__in=group)
+
+
 class RegisterViewApi(mixins.CreateModelMixin, GenericViewSet):
     serializer_class = RegisterSerializer
     permission_classes = [permissions.AllowAny]
@@ -64,18 +83,3 @@ class RegisterViewApi(mixins.CreateModelMixin, GenericViewSet):
         return Response(serializer.data)
 
 
-# class LoginViewApi(APIView):
-#     serializer_class = LoginSerializer
-#     permission_classes = [permissions.AllowAny]
-#
-#     def post(self, request):
-#         user = request.data.get('user', {})
-#         serializer = self.serializer_class(data=user)
-#         serializer.is_valid(raise_exception=True)
-#         return Response(serializer.data, status=status.HTTP_200_OK)
-#
-#     def list_user(self, request, pk=None):
-#         queryset = User.objects.all()
-#         user = get_object_or_404(queryset, pk=pk)
-#         serializer = UserSerializer(user)
-#         return Response(serializer.data)

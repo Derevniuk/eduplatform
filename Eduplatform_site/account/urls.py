@@ -13,6 +13,7 @@ from .endpoints import (
     StudentViewSet,
     TeacherViewSet,
     UserViewSet,
+    GroupStudentViewAPI
 )
 
 router = DefaultRouter()
@@ -28,6 +29,11 @@ urlpatterns = [
         "teachers/(?P<id>.+)/group",
         GroupTeacherViewAPI.as_view(),
         name="teacher_groups",
+    ),
+    re_path(
+        "groups/(?P<id>.+)/students",
+        GroupStudentViewAPI.as_view(),
+        name="groups_students",
     ),
     path("register/", RegisterViewApi.as_view({"get": "list_user", "post": "create"}), name="create_user"),
     path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
