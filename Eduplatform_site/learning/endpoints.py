@@ -1,7 +1,19 @@
 from rest_framework import generics, permissions
+from rest_framework.generics import ListAPIView
 from rest_framework.viewsets import ModelViewSet
 
-from .models import Answer, Article, Attempt, Course, Question, Test, Topic
+from .models import (Answer,
+                     Article,
+                     Attempt,
+                     Course,
+                     Question,
+                     Test,
+                     Topic,
+                     Teacher,
+                     Student,
+                     Group,
+                     )
+
 from .serializers import (
     AnswerSerializer,
     ArticleSerializer,
@@ -10,7 +22,51 @@ from .serializers import (
     QuestionSerializer,
     TestSerializer,
     TopicSerializer,
+    TeacherSerializer,
+    StudentSerializer,
+    GroupSerializer,
+    GroupStudentSerializer,
 )
+
+
+
+class TeacherViewSet(ModelViewSet):
+    queryset = Teacher.objects.all()
+    serializer_class = TeacherSerializer
+    permission_classes = [permissions.AllowAny]
+
+
+class StudentViewSet(ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+    permission_classes = [permissions.AllowAny]
+
+
+class GroupViewSet(ModelViewSet):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+    permission_classes = [permissions.AllowAny]
+
+
+class GroupTeacherViewAPI(ListAPIView):
+    permission_classes = [permissions.AllowAny]
+    serializer_class = GroupSerializer
+    queryset = Group.objects.all()
+
+    def get_queryset(self):
+        teacher = self.kwargs["id"]
+        return Group.objects.filter(teacher__in=teacher)
+
+
+class GroupStudentViewAPI(ListAPIView):
+    permission_classes = [permissions.AllowAny]
+    serializer_class = GroupStudentSerializer
+    queryset = Student.objects.all()
+
+    def get_queryset(self):
+        group = self.kwargs["id"]
+        print(self.request)
+        return Student.objects.filter(group__in=group)
 
 
 class CourseViewSet(ModelViewSet):
@@ -49,7 +105,7 @@ class AttemptViewSet(ModelViewSet):
 
 
 class CourseTopicViewAPI(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.AllowAny]
     serializer_class = TopicSerializer
     queryset = Topic.objects.all()
 
@@ -59,7 +115,7 @@ class CourseTopicViewAPI(generics.ListCreateAPIView):
 
 
 class TopicArticleViewAPI(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.AllowAny]
     serializer_class = ArticleSerializer
     queryset = Article.objects.all()
 
@@ -69,7 +125,7 @@ class TopicArticleViewAPI(generics.ListCreateAPIView):
 
 
 class TestQuestionViewAPI(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.AllowAny]
     serializer_class = QuestionSerializer
     queryset = Question.objects.all()
 
@@ -79,7 +135,7 @@ class TestQuestionViewAPI(generics.ListCreateAPIView):
 
 
 class QuestionAnswerViewAPI(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.AllowAny]
     serializer_class = AnswerSerializer
     queryset = Answer.objects.all()
 

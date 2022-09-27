@@ -1,12 +1,73 @@
-from account.models import Student, Teacher
+from account.models import User
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from Eduplatform_site.mixins import DateTimeMixinModel
 
-__all__ = {"Course", "Topic", "Article", "Test", "Question", "Answer", "Attempt"}
+# __all__ = {"Course", "Topic", "Article", "Test", "Question", "Answer", "Attempt"}
 
+
+class Teacher(models.Model, DateTimeMixinModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    photo = models.ManyToManyField("Photo")
+
+    def __str__(self):
+        return f"{self.id}, user-{self.user}"
+
+    class Meta:
+        verbose_name = _("teacher")
+        verbose_name_plural = _("teachers")
+        ordering = [
+            "-pk",
+        ]
+
+class Student(models.Model, DateTimeMixinModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    rating = models.FloatField(null=True)
+    photo = models.ManyToManyField("Photo")
+
+    def __str__(self):
+        return f"{self.id}, user - {self.user}"
+
+    class Meta:
+        verbose_name = _("student")
+        verbose_name_plural = _("students")
+        ordering = [
+            "-pk",
+        ]
+
+class Photo(models.Model, DateTimeMixinModel):
+    photo = models.ImageField(
+        upload_to="image/%Y/%m/%d/",
+    )
+
+    def __str__(self):
+        return f"{self.id}, path-{self.photo}"
+
+    class Meta:
+        verbose_name = _("photo")
+        verbose_name_plural = _("photos")
+        unique_together = [
+            "photo",
+        ]
+
+
+class Group(models.Model, DateTimeMixinModel):
+    group_name = models.CharField(max_length=50)
+    course = models.ForeignKey("learning.Course", on_delete=models.CASCADE, null=True)
+    teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL, null=True)
+    student = models.ManyToManyField(Student, blank=True)
+
+    def __str__(self):
+        return f"{self.group_name}, teacher-{self.teacher}"
+
+    class Meta:
+        verbose_name = _("students_group")
+        verbose_name_plural = _("students_groups")
+        ordering = [
+            "-pk",
+        ]
 
 class Course(models.Model, DateTimeMixinModel):
     course_name = models.CharField(max_length=50)
@@ -15,6 +76,9 @@ class Course(models.Model, DateTimeMixinModel):
     class Meta:
         verbose_name = _("course")
         verbose_name_plural = _("courses")
+        ordering = [
+            "-pk",
+        ]
 
     def __str__(self):
         return f"{self.course_name}"
@@ -49,7 +113,9 @@ class Article(models.Model, DateTimeMixinModel):
     class Meta:
         verbose_name = _("topic_articles")
         verbose_name_plural = _("topic_articles")
-
+        ordering = [
+            "-pk",
+        ]
 
 class Test(models.Model, DateTimeMixinModel):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, null=True)
