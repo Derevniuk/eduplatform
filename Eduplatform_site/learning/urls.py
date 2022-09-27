@@ -13,9 +13,19 @@ from .endpoints import (
     TestViewSet,
     TopicArticleViewAPI,
     TopicViewSet,
+    StudentViewSet,
+    TeacherViewSet,
+    GroupViewSet,
+    GroupStudentViewAPI,
+    GroupTeacherViewAPI,
 )
 
+
 router = DefaultRouter()
+router.register(r"students", StudentViewSet)
+router.register(r"teachers", TeacherViewSet)
+router.register(r"groups", GroupViewSet)
+
 router.register("courses", CourseViewSet)
 router.register("topics", TopicViewSet)
 router.register("articles", ArticleViewSet)
@@ -25,14 +35,13 @@ router.register("answers", AnswerViewSet)
 router.register("attempts", AttemptViewSet)
 
 
+
 urlpatterns = [
     path("", include(router.urls)),
-    re_path("course/(?P<id>.+)/topics", CourseTopicViewAPI.as_view(), name="course_topics"),
-    re_path("topic/(?P<id>.+)/articles", TopicArticleViewAPI.as_view(), name="topic_article"),
-    re_path("test/(?P<id>.+)/questions", TestQuestionViewAPI.as_view(), name="test_question"),
-    re_path(
-        "question/(?P<id>.+)/answers",
-        QuestionAnswerViewAPI.as_view(),
-        name="question_answer",
-    ),
+    re_path("teachers/(?P<id>.+)/group", GroupTeacherViewAPI.as_view(),name="teacher_groups"),
+    re_path("groups/(?P<id>.+)/students", GroupStudentViewAPI.as_view(),name="groups_students"),
+    re_path("courses/(?P<id>.+)/topics", CourseTopicViewAPI.as_view(), name="course_topics"),
+    re_path("topics/(?P<id>.+)/articles", TopicArticleViewAPI.as_view(), name="topic_article"),
+    re_path("tests/(?P<id>.+)/questions", TestQuestionViewAPI.as_view(), name="test_question"),
+    re_path("question/(?P<id>.+)/answers", QuestionAnswerViewAPI.as_view(),name="question_answer"),
 ]
